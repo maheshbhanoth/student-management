@@ -3,6 +3,7 @@ package com.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Service.StudentService;
 import com.entity.Student;
 
+import jakarta.validation.Valid;
+
+@Validated
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -26,7 +30,7 @@ public class StudentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Student> cerateStudent(@RequestBody Student stundent) {
+	public ResponseEntity<Student> cerateStudent(@Valid @RequestBody Student stundent) {
 		Student student = studentService.create(stundent);
 		return ResponseEntity.ok(student);
 	}
@@ -37,7 +41,7 @@ public class StudentController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+	public ResponseEntity<Student> getStudentById(@Valid @PathVariable Long id) {
 		return ResponseEntity.ok(studentService.getById(id));
 	}
 
